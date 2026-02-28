@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Inventory\nNewton</string>
+    <string name="button_name">Click Me</string>
+    <string name="title_name">Palette</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="log_in">Sign In</string>
+    <string name="register">Register</string>
+    <string name="login">Log In</string>
+    <string name="logoname">logo name</string>
+    <string name="email">Username</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">forgot password?</string>
+    <string name="remember_me">Remember me</string>
+    <string name="or_sign_in_with"> or Sign In with </string>
+    <string name="don_t_have_any_account_sign_up">Don\'t have any account? Sign Up</string>
+    <string name="welcome_page">Grant Permission</string>
+    <string name="google">Google</string>
+    <string name="facebook">Facebook</string>
+    <string name="default_web_client_id" translatable="false">1034174467493-1v46ie7f02pu5aiiv0gbaci5c944593c</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="already_have_an_account_sign_in">Already have an account? Sign In</string>
+    <string name="create">Create</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

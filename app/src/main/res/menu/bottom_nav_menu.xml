@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Home"
+          android:id="@+id/NavHome"
+          android:icon="@drawable/baseline_home"/>
+    <item
+        android:id="@+id/NavMap"
+        android:icon="@drawable/baseline_file_copy_24"
+        android:title="Inventory App" />
+    <item android:title="Options"
+          android:id="@+id/NavOptions"
+          android:icon="@drawable/baseline_settings"/>
+</menu>

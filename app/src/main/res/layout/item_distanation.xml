@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="11dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:id="@+id/backgroundLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="140dp"
+        android:background="@drawable/placeholderbackground"
+        android:scaleType="fitCenter"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/latitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="latitude"
+            android:layout_marginLeft="16dp"
+            android:textColor="#00757575"/>
+        <TextView
+            android:id="@+id/longitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginLeft="16dp"
+            android:text="longitude"
+            android:textColor="#00757575"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:orientation="horizontal"
+            android:scaleType="centerCrop">
+
+            <TextView
+                android:id="@+id/placeloc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:elevation="4dp"
+                android:fontFamily="@font/googlesans_bold"
+                android:outlineAmbientShadowColor="@color/white"
+                android:shadowColor="#7C7B7B"
+                android:shadowRadius="5.0"
+                android:text="Placeholder"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#151515"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+            <TextView
+                android:id="@+id/info"
+                android:layout_width="match_parent"
+                android:layout_height="14dp"
+                android:layout_margin="5dp"
+                android:elevation="4dp"
+                android:fontFamily="@font/googlesans"
+                android:outlineAmbientShadowColor="@color/white"
+                android:shadowColor="#7C7B7B"
+                android:shadowRadius="5.0"
+                android:text="Placeholder"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
