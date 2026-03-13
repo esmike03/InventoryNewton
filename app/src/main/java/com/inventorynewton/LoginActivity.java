@@ -79,15 +79,6 @@ public class LoginActivity extends AppCompatActivity {
         edpass = findViewById(R.id.inputpassword);
         buttonLogin = findViewById(R.id.button);
 
-        forgot = findViewById(R.id.forgot);
-        forgot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
-                startActivity(intent);
-            }
-        });
-
 
         checkBox();
         check();

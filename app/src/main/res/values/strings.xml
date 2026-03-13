@@ -16,7 +16,7 @@
     <string name="welcome_page">Grant Permission</string>
     <string name="google">Google</string>
     <string name="facebook">Facebook</string>
-    <string name="default_web_client_id" translatable="false">1034174467493-1v46ie7f02pu5aiiv0gbaci5c944593c</string>
+<!--    <string name="default_web_client_id" translatable="false">1034174467493-1v46ie7f02pu5aiiv0gbaci5c944593c</string>-->
     <string name="confirm_password">Confirm Password</string>
     <string name="already_have_an_account_sign_in">Already have an account? Sign In</string>
     <string name="create">Create</string>

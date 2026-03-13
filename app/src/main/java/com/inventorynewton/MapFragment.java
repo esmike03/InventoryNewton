@@ -1,6 +1,7 @@
 package com.inventorynewton;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,6 +14,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -34,7 +36,10 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,7 +64,7 @@ public class MapFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewAssets);
         EditText etSearch = view.findViewById(R.id.etSearch);
         assetDao = new AssetDao(requireContext());
-//        List<Asset> assetList = new ArrayList<>(assetDao.getAllAssets());
+
 
         assetList = new ArrayList<>(assetDao.getAllAssets());
         adapter = new AssetAdapter(requireContext(), assetList);
@@ -72,15 +77,36 @@ public class MapFragment extends Fragment {
 
         btnExport.setOnClickListener(v -> exportAssetsToCSV());
 
-        // 🔍 Search Listener
-        etSearch.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void afterTextChanged(Editable s) {}
+        etSearch.post(() -> {
+            etSearch.requestFocus();
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                adapter.filter(s.toString());
+            // Optional: show keyboard (not required for Zebra scanner)
+            InputMethodManager imm = (InputMethodManager) requireContext()
+                    .getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.showSoftInput(etSearch, InputMethodManager.SHOW_IMPLICIT);
             }
+        });
+        // 🔍 Search Listener
+        etSearch.setOnEditorActionListener((v, actionId, event) -> {
+            String scannedText = etSearch.getText().toString().trim();
+
+            etSearch.requestFocus();
+            // Optional: show soft keyboard
+            InputMethodManager imm = (InputMethodManager) requireContext()
+                    .getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.showSoftInput(etSearch, InputMethodManager.SHOW_IMPLICIT);
+            }
+            if (!scannedText.isEmpty()) {
+                // Filter adapter with the scanned barcode
+                adapter.filter(scannedText);
+
+                // Clear the EditText for the next scan
+                etSearch.setText("");
+            }
+
+            return true; // consume the action
         });
     }
     @Override
@@ -137,7 +163,7 @@ public class MapFragment extends Fragment {
             writer.flush();
             writer.close();
 
-            shareCSV(file);
+            shareFile(file);
 
         } catch (Exception e) {
             Toast.makeText(getContext(), "Export failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -145,18 +171,65 @@ public class MapFragment extends Fragment {
     }
 
 
-    private void shareCSV(File file) {
-        Uri uri = FileProvider.getUriForFile(
-                requireContext(),
-                requireContext().getPackageName() + ".provider",
-                file
-        );
+    private void shareFile(File csvFile) {
+        String[] formats = {"CSV", "Excel"};
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Choose export format")
+                .setItems(formats, (dialog, which) -> {
+                    File fileToShare;
+                    String mimeType;
 
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/csv");
-        intent.putExtra(Intent.EXTRA_STREAM, uri);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    if (which == 0) { // CSV
+                        fileToShare = csvFile;
+                        mimeType = "text/csv";
+                    } else { // Excel
+                        try {
+                            fileToShare = convertCSVToExcel(csvFile);
+                            mimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                        } catch (Exception e) {
+                            Toast.makeText(getContext(), "Failed to create Excel: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                    }
 
-        startActivity(Intent.createChooser(intent, "Export Asset Report"));
+                    Uri uri = FileProvider.getUriForFile(
+                            requireContext(),
+                            requireContext().getPackageName() + ".provider",
+                            fileToShare
+                    );
+
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType(mimeType);
+                    intent.putExtra(Intent.EXTRA_STREAM, uri);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                    startActivity(Intent.createChooser(intent, "Export Asset Report"));
+                })
+                .show();
+    }
+
+    private File convertCSVToExcel(File csvFile) throws Exception {
+        File excelFile = new File(csvFile.getParent(), csvFile.getName().replace(".csv", ".xlsx"));
+        org.apache.poi.ss.usermodel.Workbook workbook = new org.apache.poi.xssf.usermodel.XSSFWorkbook();
+        org.apache.poi.ss.usermodel.Sheet sheet = workbook.createSheet("Assets");
+
+        BufferedReader br = new BufferedReader(new FileReader(csvFile));
+        String line;
+        int rowNum = 0;
+        while ((line = br.readLine()) != null) {
+            String[] columns = line.split(",");
+            org.apache.poi.ss.usermodel.Row row = sheet.createRow(rowNum++);
+            for (int i = 0; i < columns.length; i++) {
+                row.createCell(i).setCellValue(columns[i]);
+            }
+        }
+        br.close();
+
+        FileOutputStream fos = new FileOutputStream(excelFile);
+        workbook.write(fos);
+        workbook.close();
+        fos.close();
+
+        return excelFile;
     }
 }

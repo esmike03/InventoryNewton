@@ -3,12 +3,12 @@
 
     <item android:title="Home"
           android:id="@+id/NavHome"
-          android:icon="@drawable/baseline_home"/>
+          android:icon="@drawable/home"/>
     <item
         android:id="@+id/NavMap"
-        android:icon="@drawable/baseline_file_copy_24"
+        android:icon="@drawable/checklist"
         android:title="Inventory App" />
     <item android:title="Options"
           android:id="@+id/NavOptions"
-          android:icon="@drawable/baseline_settings"/>
+          android:icon="@drawable/settings"/>
 </menu>

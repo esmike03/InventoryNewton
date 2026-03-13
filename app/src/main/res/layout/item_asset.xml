@@ -1,115 +1,196 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp">
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="6dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp"
+    app:cardBackgroundColor="@color/white">
 
-    <TextView
-        android:id="@+id/tvAssetNumber"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Asset Number"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnEdit"/>
+        android:paddingHorizontal="16dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="10dp">
 
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Description"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@+id/tvAssetNumber"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnEdit"/>
+        <!-- ROW 1: Asset Number + Edit Button -->
+        <TextView
+            android:id="@+id/tvAssetNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Asset Number"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#1A1A2E"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnEdit" />
 
-    <!-- Edit Button as Text -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEdit"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="Edit"
+            android:textSize="11sp"
+            android:textColor="#1A73E8"
+            android:paddingHorizontal="12dp"
+            app:strokeColor="#1A73E8"
+            app:strokeWidth="1.5dp"
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvAssetNumber"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAssetNumber" />
 
-    <!-- Delete Button as Text -->
+        <!-- Divider -->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#F0F0F5"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAssetNumber" />
 
-    <Button
-        android:id="@+id/btnEdit"
-        android:layout_width="78dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="8dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:text="Edit"
-        android:textColor="@color/black"
-        android:textSize="10sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <!-- ROW 2: Description + Delete Button -->
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:textSize="14sp"
+            android:textColor="#444466"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:layout_constraintEnd_toStartOf="@+id/btnDelete" />
 
-    <Button
-        android:id="@+id/btnDelete"
-        android:layout_width="92dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="4dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:text="Delete"
-        android:textColor="#E60505"
-        android:textSize="10sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnEdit"
-        app:layout_constraintVertical_bias="0.22" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDelete"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="Delete"
+            android:textSize="11sp"
+            android:textColor="#D32F2F"
+            android:paddingHorizontal="12dp"
+            app:strokeColor="#D32F2F"
+            app:strokeWidth="1.5dp"
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvDescription"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDescription" />
 
-    <TextView
-        android:id="@+id/tvValidate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+        <!-- ROW 3: Location -->
+        <ImageView
+            android:id="@+id/icLocation"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@drawable/location"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+            app:layout_constraintBottom_toBottomOf="@+id/tvLocation" />
 
-    <TextView
-        android:id="@+id/tvLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvValidate" />
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:textSize="13sp"
+            android:textColor="#666688"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@+id/icLocation"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/tvRemarks"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
+        <!-- ROW 4: Remarks -->
+        <ImageView
+            android:id="@+id/icRemarks"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@drawable/checklist"
+            android:layout_marginTop="6dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLocation"
+            app:layout_constraintBottom_toBottomOf="@+id/tvRemarks" />
 
-    <CheckBox
-        android:id="@+id/cbValidate"
-        android:layout_width="53dp"
-        android:layout_height="25dp"
+        <TextView
+            android:id="@+id/tvRemarks"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Remarks"
+            android:textSize="13sp"
+            android:textColor="#666688"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintStart_toEndOf="@+id/icRemarks"
+            app:layout_constraintTop_toBottomOf="@+id/tvLocation"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDelete"
-        app:layout_constraintVertical_bias="0.764" />
+        <!-- Bottom Divider -->
+        <View
+            android:id="@+id/dividerBottom"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#F0F0F5"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvRemarks" />
 
-    <TextView
-        android:id="@+id/cbCreated"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="TextView"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRemarks"
-        app:layout_constraintVertical_bias="0.0" />
+        <!-- BOTTOM ROW: Created + Validate status badge + CheckBox -->
+        <TextView
+            android:id="@+id/cbCreated"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Created by"
+            android:textSize="11sp"
+            android:textColor="#AAAACC"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dividerBottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvValidate"
+            app:layout_constraintHorizontal_bias="0" />
 
+        <!-- tvValidate: status badge (Found / Not Found) colored by adapter -->
+        <TextView
+            android:id="@+id/tvValidate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Not Found"
+            android:textSize="11sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/badge_background"
+            app:layout_constraintEnd_toStartOf="@+id/cbValidate"
+            app:layout_constraintTop_toBottomOf="@+id/dividerBottom"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <CheckBox
+            android:id="@+id/cbValidate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:buttonTint="#1A73E8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dividerBottom"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
